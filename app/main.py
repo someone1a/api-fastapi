@@ -35,7 +35,7 @@ def read_root():
     return {"message": "Welcome to the FastAPI PostgreSQL API"}
 
 # Get port from environment variable or use default
-port = int(os.getenv("PORT", 10000))
+port = int(os.getenv("PORT", 8000))
 
 # For deployment
 if __name__ == "__main__":
