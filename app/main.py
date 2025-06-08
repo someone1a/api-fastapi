@@ -1,8 +1,13 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import os
+from dotenv import load_dotenv
 
 from app.database import engine, Base
 from app.routers import users
+
+# Load environment variables
+load_dotenv()
 
 # Create database tables
 Base.metadata.create_all(bind=engine)
@@ -28,3 +33,11 @@ app.include_router(users.router)
 @app.get("/")
 def read_root():
     return {"message": "Welcome to the FastAPI PostgreSQL API"}
+
+# Get port from environment variable or use default
+port = int(os.getenv("PORT", 10000))
+
+# For deployment
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=port)
